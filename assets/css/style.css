@@ -852,7 +852,11 @@ article.container::before {
 
 }
 
-
+.inline-link {
+  display: inline; 
+  text-decoration: none; 
+  
+}
 
 
 /*-----------------------------------*\
