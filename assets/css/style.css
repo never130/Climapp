@@ -103,7 +103,7 @@ button {
 
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: none
 }
 
 img {
@@ -197,8 +197,8 @@ body {
   word-wrap: normal;
   direction: ltr;
   font-feature-settings: 'liga';
-  --webkit-font-feature-setting: 'liga';
-  --webkit-font-smoothing: antialiased;
+  -webkit-font-feature-setting: 'liga';
+  -webkit-font-smoothing: antialiased;
   height: 1em;
   width: 1em;
   overflow: hidden;
@@ -403,7 +403,7 @@ body {
   /* para moviles */
   background-color: var(--surface);
   color: var(--on-surface);
-  clip-path: circle(4% at cal(100% - 102px) 5%);
+  clip-path: circle(4% at calc(100% - 102px) 5%);
   opacity: 0;
   visibility: hidden;
   z-index: 4;
@@ -473,7 +473,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.search-wrapper>.m-icon {
+.search-wrapper > .m-icon {
   display: none;
 }
 
@@ -482,7 +482,7 @@ body {
   box-shadow: none;
 }
 
-.search-view .view-list {
+.search-wrapper .view-list {
   padding-block: 8px 16px;
 }
 
@@ -521,11 +521,11 @@ main {
 article.container {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
   gap: 20px;
   height: 100%;
   overflow-y: auto;
   overflow-y: overlay;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 article.container::-webkit-scrollbar-thumb {
@@ -571,7 +571,7 @@ article.container::before {
   margin-inline: auto;
 }
 
-.current-weather-card>.body-3 {
+.current-weather-card > .body-3 {
   text-transform: capitalize;
 }
 
@@ -751,7 +751,7 @@ article.container::before {
 .slider-list::before,
 .slider-list::after {
   content: "";
-  min-height: 4px;
+  min-width: 4px;
 }
 
 .slider-item {
@@ -765,7 +765,7 @@ article.container::before {
 
 .slider-item .weather-icon {
   margin-inline: auto;
-  margin-block-start: 12px;
+  margin-block: 12px;
 }
 
 
@@ -840,7 +840,7 @@ article.container::before {
   text-align: center;
   gap: 12px 24px;
   margin-block-start: 28px;
-  /* display: none; */
+  display: none
 }
 
 .fade-in .footer {
@@ -1021,6 +1021,10 @@ article.container::before {
     column-gap: 24px;
   }
 
+  .highlight-card.one .card-item{
+    row-gap: 0px
+  }
+
   /**
     header
   */
@@ -1080,7 +1084,7 @@ article.container::before {
     display: block;
   }
 
-  .search-view:has(.search-result.search-view.active):focus-within .search-field {
+  .search-view:has(.search-view.active):focus-within .search-field {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }

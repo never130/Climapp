@@ -8,13 +8,13 @@
 'use strict';
 
 import { updateWeather, error404 } from "./app.js"
-const defaultLocation = "#/weather?lat=51.5073219&lon=-0.1276474" //Londres
+const defaultLocation = "#/weather?lat=-53.7856766&lon=-67.7016369" //Rio grande
 
 
 const currentLocation = function () {
     window.navigator.geolocation.getCurrentPosition(res => {
         const { latitude, longitude } = res.coords;
-        updateWeather(`lat=${latitude}`, `lon=${longitude}`)
+        updateWeather(`lat=${latitude}`,`lon=${longitude}`)
     }, err => {
         window.location.hash = defaultLocation;
     })
@@ -50,4 +50,4 @@ window.addEventListener("load", function () {
     } else {
         checkHash();
     }
-})
+});
