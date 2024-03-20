@@ -32,14 +32,14 @@ export const url = {
         return `http://api.openweathermap.org/data/2.5/air_pollution?${lat}&${lon}`;
     },
     reverseGeo(lat, lon) {
-        return `http://api.openweathermap.org/geo/1.0/reverse?${lat}&${lon}&lang=es&limit=5`;
+        return `http://api.openweathermap.org/geo/1.0/reverse?${lat}&${lon}&limit=5`;
     },
     /**
      * 
      * @param {string} query  
      */
     geo(query) {
-        return `http://api.openweathermap.org/geo/1.0/direct?q=${query}&lang=es&limit=5`;
+        return `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5`;
     }
 };
  
