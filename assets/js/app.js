@@ -343,7 +343,7 @@ export const updateWeather = function (lat, lon) {
 
                 <div class="card card-sm highlight-card">
 
-                    <h3 class="title-3">Presion</h3>
+                    <h3 class="title-3">Presión</h3>
 
                     <div class="wrapper">
                         <span class="m-icon">airwave</span>
@@ -368,7 +368,7 @@ export const updateWeather = function (lat, lon) {
 
                 <div class="card card-sm highlight-card">
 
-                    <h3 class="title-3">Sensacion Termica</h3>
+                    <h3 class="title-3">Sensación Térmica</h3>
 
                     <div class="wrapper">
                         <span class="m-icon">thermostat</span>
