@@ -42,4 +42,3 @@ export const url = {
         return `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5`;
     }
 };
- 
