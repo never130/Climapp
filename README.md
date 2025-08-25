@@ -1,35 +1,68 @@
 
-# Project Title
+# Climapp
 
-A brief description of what this project does and who it's for
+Climapp is a lightweight weather web application that shows current weather, hourly forecasts and air quality using the OpenWeather API. It's a static frontend with a small serverless proxy (Netlify Functions) to keep the API key secure.
 
 ## Tech Stack
 
-**Client:** HTML, CSS, JavaScript, API
+- Client: HTML, CSS, JavaScript (ES Modules)
+- Serverless: Netlify Functions (Node)
 
-## Demo
+## Live Demo
 
-Insert gif or link to demo
+Available on Netlify: https://miclimapp.netlify.app/
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Current weather card with description and icon
+- 24-hour and 5-day forecasts
+- Air quality and environment highlights
+- Search by city (geocoding) and current location support
+- Serverless proxy to avoid exposing API keys in the browser
 
-## Screenshots
+## Quick start (development)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+1. Install dependencies:
 
+```powershell
+npm install
+```
 
-## Authors
+2. Create a local `.env` for development (do not commit it):
 
-- [@never130](https://www.github.com/never130)
+```powershell
+# .env
+OPENWEATHER_API_KEY=your_openweather_api_key_here
+```
+
+3. Start Netlify local dev (requires `netlify-cli`):
+
+```powershell
+# optional: set env for the session
+$Env:OPENWEATHER_API_KEY="your_openweather_api_key_here"
+netlify dev
+```
+
+The client will call the serverless function at `/.netlify/functions/openweather` which forwards requests to OpenWeather.
+
+## Deployment (Netlify)
+
+1. Add `OPENWEATHER_API_KEY` as an Environment Variable in your Netlify Site settings (Build & deploy → Environment).
+2. Push to your repository and let Netlify build and deploy the site. The `netlify/functions` folder contains the serverless proxy function.
+
+## Security notes
+
+- Never commit `.env` or your API keys to the repository. Use environment variables in Netlify for production keys.
+- If an API key is ever exposed in a public repo, rotate it immediately.
+
+## Author
+
+Made by Ever Loza (GitHub: @never130)
+
+Portfolio: https://everloza-porfolio.netlify.app/
+
+Ever Loza — Software & AI Developer
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Support
-
-For support, Join at messagge [My Portfolio](https://everloza-portafolio.netlify.app/) or Follow me in [Instagram](https://www.instagram.com/radiocreep95/).
+MIT
