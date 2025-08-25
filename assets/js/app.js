@@ -151,15 +151,25 @@ export const updateWeather = function (lat, lon) {
 
 
     fetchData(url.currentWeather(lat, lon), function (currentWeather) {
+        if (!currentWeather || currentWeather.error) {
+            console.error('Error obteniendo clima actual', currentWeather);
+            loading.style.display = 'none';
+            container.classList.remove('fade-in');
+            // mostrar mensaje amigable
+            if (errorContent) errorContent.style.display = 'flex';
+            return;
+        }
+
         const {
             weather,
             dt: dateUnix,
-            sys: { sunrise: sunriseUnixUTC, sunset: sunsetUnixUTC },
-            main: { temp, feels_like, pressure, humidity },
+            sys: { sunrise: sunriseUnixUTC, sunset: sunsetUnixUTC } = {},
+            main: { temp, feels_like, pressure, humidity } = {},
             visibility,
-            timezone
-        } = currentWeather
-        const [{ description, icon }] = weather;
+            timezone = 0
+        } = currentWeather;
+
+        const [{ description, icon } = {}] = weather || [];
 
         const card = document.createElement("div");
         card.classList.add("card", "card-lg", "current-weather-card");
@@ -199,8 +209,11 @@ export const updateWeather = function (lat, lon) {
         `
 
 
-        fetchData(url.reverseGeo(lat, lon), function ([{ name, country }]) {
-            card.querySelector("[data-location]").innerHTML = `${name}, ${country}`
+        fetchData(url.reverseGeo(lat, lon), function (rev) {
+            if (rev && !rev.error && Array.isArray(rev) && rev.length) {
+                const [{ name, country } = {}] = rev;
+                card.querySelector("[data-location]") && (card.querySelector("[data-location]").innerHTML = `${name}, ${country}`)
+            }
         })
 
 
@@ -217,10 +230,14 @@ export const updateWeather = function (lat, lon) {
         // //todays highlughts;
 
         fetchData(url.airPollution(lat, lon), function (airPollution) {
-            const [{
-                main: { aqi },
-                components: { no2, o3, so2, pm2_5 }
-            }] = airPollution.list;
+            if (!airPollution || airPollution.error) {
+                console.warn('No se pudo obtener calidad de aire', airPollution);
+            } else {
+                const list = airPollution.list || [];
+                const [{
+                    main: { aqi } = {},
+                    components: { no2 = 0, o3 = 0, so2 = 0, pm2_5 = 0 } = {}
+                } = {}] = list;
 
 
             const card = document.createElement('div');
@@ -383,7 +400,8 @@ export const updateWeather = function (lat, lon) {
             </div>  `;
 
 
-            highlightSection.appendChild(card)
+                highlightSection.appendChild(card)
+            }
         })
 
 
@@ -391,9 +409,15 @@ export const updateWeather = function (lat, lon) {
         //24h forecast sections
 
         fetchData(url.forecast(lat, lon), function (forecast) {
+            if (!forecast || forecast.error) {
+                console.warn('No se pudo obtener pronóstico', forecast);
+                loading.style.display = "none";
+                return;
+            }
+
             const {
-                list: forecastList,
-                city: { timezone }
+                list: forecastList = [],
+                city: { timezone = 0 } = {}
             } = forecast;
 
             hourlySection.innerHTML = `

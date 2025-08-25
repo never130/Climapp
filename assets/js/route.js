@@ -12,9 +12,14 @@ const defaultLocation = "#/weather?lat=-53.7856766&lon=-67.7016369" //Rio grande
 
 
 const currentLocation = function () {
+    if (!window.navigator || !window.navigator.geolocation) {
+        window.location.hash = defaultLocation;
+        return;
+    }
+
     window.navigator.geolocation.getCurrentPosition(res => {
         const { latitude, longitude } = res.coords;
-        updateWeather(`lat=${latitude}`,`lon=${longitude}`)
+        updateWeather(`lat=${latitude}`, `lon=${longitude}`)
     }, err => {
         window.location.hash = defaultLocation;
     })
@@ -25,7 +30,13 @@ const currentLocation = function () {
  * 
  * @param {string} query Consulta buscada
  */
-const searchedLocation = query => updateWeather(...query.split("&"));
+const searchedLocation = query => {
+    if (!query) {
+        window.location.hash = defaultLocation;
+        return;
+    }
+    updateWeather(...query.split("&"));
+}
 //updateWeather("lat=-53.786037", "lon=-67.700224")
 
 
@@ -36,10 +47,17 @@ const routes = new Map([
 
 
 const checkHash = function () {
-    const requestURL = window.location.hash.slice(1);
-    const [route, query] = requestURL.includes ? requestURL.split("?") :
-        [requestURL];
-    routes.get(route) ? routes.get(route)(query) : error404();
+    const requestURL = window.location.hash.slice(1) || '';
+    const parts = requestURL.split('?');
+    const route = parts[0] || '';
+    const query = parts[1] || '';
+
+    const handler = routes.get(route);
+    if (typeof handler === 'function') {
+        handler(query);
+    } else {
+        error404();
+    }
 }
 
 
